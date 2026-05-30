@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SamarTech | Industry-Level Projects & Training</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ==================== DESIGN SYSTEM & VARIABLES ==================== */
+        :root {
+            /* Light Theme */
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-light: #eff6ff;
+            --secondary: #0ea5e9;
+            --success: #22c55e;
+            --success-light: #dcfce7;
+            --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --gradient-text: linear-gradient(90deg, #2563eb, #06b6d4);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-base: #020617;
+            --bg-surface: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --primary-light: #1e3a8a;
+            --success: #22c55e;
+            --success-light: #14532d;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            --glass-bg: rgba(15, 23, 42, 0.85);
+        }
+
+        /* ==================== GLOBAL RESET ==================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; border-radius: 12px; }
+        button, input, textarea { font-family: inherit; }
+        button { cursor: pointer; border: none; background: none; }
+
+        /* ==================== TYPOGRAPHY & UTILITIES ==================== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-padding { padding: 5rem 0; }
+        .text-center { text-align: center; }
+        .text-gradient { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        .heading-xl { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+        .heading-lg { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        .heading-md { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); }
+        .text-lead { font-size: 1.125rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 3rem; }
+
+        .card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; box-shadow: var(--card-shadow); transition: transform 0.3s, border-color 0.3s; }
+        .card:hover { transform: translateY(-4px); border-color: var(--primary); }
+        
+        .pill { display: inline-flex; align-items: center; justify-content: center; background: var(--primary-light); color: var(--primary); font-size: 0.85rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 999px; }
+        
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.875rem 2rem; border-radius: 12px; font-weight: 600; font-size: 1rem; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); }
+        .btn-primary:hover { background: var(--primary-hover); transform: scale(1.02); }
+        .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-outline:hover { background: var(--bg-surface); border-color: var(--text-muted); }
+        .btn-success { background: var(--success); color: #fff; width: 100%; box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4); }
+
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+        /* ==================== NAVBAR ==================== */
+        .navbar { position: fixed; top: 0; width: 100%; z-index: 1000; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-color); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 4.5rem; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: var(--primary); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-size: 0.95rem; font-weight: 600; color: var(--text-main); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-controls { display: flex; align-items: center; gap: 1rem; }
+        .icon-btn { padding: 0.5rem; border-radius: 50%; color: var(--text-main); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .icon-btn:hover { background: var(--border-color); }
+        .menu-toggle { display: none; }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; padding-top: 5rem; text-align: center; overflow: hidden; }
+        .hero-bg-glow { position: absolute; width: 80vw; height: 80vw; max-width: 800px; max-height: 800px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(6,182,212,0.05) 50%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1; pointer-events: none; }
+        .badge-hero { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.25rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 999px; font-weight: 600; font-size: 0.875rem; margin-bottom: 2rem; box-shadow: var(--card-shadow); color: var(--text-main); }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* ==================== STATS SECTION ==================== */
+        .stats-section { padding: 2rem 0; background: var(--bg-surface); }
+        .stat-card { text-align: center; padding: 2rem; background: var(--bg-base); border-radius: 16px; border: 1px solid var(--border-color); }
+        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem; }
+        .stat-label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+
+        /* ==================== ABOUT SECTION ==================== */
+        .mission-card { background: var(--primary-light); color: var(--primary); padding: 1.5rem; border-radius: 16px; text-align: center; font-weight: 600; margin-bottom: 3rem; border: 1px solid var(--border-color); }
+        .feature-icon { width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+        
+        /* ==================== WHY CHOOSE US ==================== */
+        .why-choose-us { background: var(--primary-light); padding: 5rem 0; text-align: center; border-radius: 24px; margin: 0 1.5rem; border: 1px solid var(--border-color); }
+        .why-stats { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; margin-top: 3rem; }
+        .why-stat-num { font-size: 3.5rem; font-weight: 800; color: var(--primary); }
+
+        /* ==================== SERVICES SECTION ==================== */
+        .service-features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+        .learn-more { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); font-weight: 600; margin-top: auto; }
+
+        /* ==================== PROJECTS SECTION ==================== */
+        .search-bar { position: relative; max-width: 600px; margin: 0 auto 2rem; }
+        .search-bar i { position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-input { width: 100%; padding: 1rem 1rem 1rem 3rem; border-radius: 999px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-main); font-size: 1rem; box-shadow: var(--card-shadow); outline: none; }
+        .search-input:focus { border-color: var(--primary); }
+        
+        .project-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+        .filter-btn { padding: 0.5rem 1.25rem; border-radius: 999px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-main); font-weight: 500; font-size: 0.9rem; }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        .project-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+        .project-img-wrapper { position: relative; height: 220px; }
+        .project-img-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px 20px 0 0; }
+        .project-category { position: absolute; top: 1rem; right: 1rem; background: var(--glass-bg); backdrop-filter: blur(8px); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; color: var(--text-main); box-shadow: var(--card-shadow); }
+        .project-body { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; }
+
+        /* ==================== INTERNSHIPS & CTA ==================== */
+        .cta-banner { background: var(--gradient-text); border-radius: 24px; padding: 4rem 2rem; text-align: center; color: white; margin: 4rem 1.5rem 0; box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.4); }
+        .cta-banner .heading-lg { color: white; margin-bottom: 1rem; }
+        .cta-banner .text-lead { color: rgba(255,255,255,0.9); }
+
+        /* ==================== WORKSHOPS SECTION ==================== */
+        .workshop-card { position: relative; height: 300px; border-radius: 20px; overflow: hidden; display: flex; align-items: flex-end; padding: 2rem; color: white; }
+        .workshop-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+        .workshop-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%); z-index: 1; }
+        .workshop-content { position: relative; z-index: 2; }
+        .workshop-content h3 { color: white; margin-bottom: 0.5rem; font-size: 1.5rem; }
+
+        /* ==================== SUCCESS STORIES ==================== */
+        .testimonial-carousel { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 2rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .testimonial-carousel::-webkit-scrollbar { display: none; }
+        .testimonial-card { min-width: 320px; scroll-snap-align: center; background: var(--bg-surface); padding: 2rem; border-radius: 20px; border: 1px solid var(--border-color); }
+        .stars { color: #f59e0b; display: flex; gap: 0.25rem; margin-bottom: 1rem; }
+        .student-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+        .student-avatar { width: 48px; height: 48px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info-item { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 1rem; }
+        .contact-info-item i { color: var(--primary); }
+        
+        .whatsapp-cta { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 2rem; border-radius: 20px; text-align: center; margin-top: 2rem; box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3); }
+        .whatsapp-cta h3 { color: white; margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: 700; }
+        
+        .contact-form { background: var(--bg-surface); padding: 2.5rem; border-radius: 24px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--bg-base); color: var(--text-main); font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .form-control:focus { border-color: var(--primary); }
+
+        /* ==================== FOOTER ==================== */
+        .footer { background: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 4rem 0 2rem; margin-top: 5rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+        .footer h4 { font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.2s; }
+        .social-links a:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { color: var(--text-muted); font-size: 0.95rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.875rem; }
+
+        /* ==================== FLOATING ACTION BUTTONS ==================== */
+        .fab-container { position: fixed; bottom: 2rem; right: 2rem; display: flex; flex-direction: column; gap: 1rem; z-index: 99; }
+        .fab { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2); transition: transform 0.2s, opacity 0.3s; }
+        .fab:hover { transform: scale(1.1); }
+        .fab-whatsapp { background-color: #25D366; }
+        .fab-top { background-color: var(--text-main); color: var(--bg-base); opacity: 0; pointer-events: none; }
+        .fab-top.visible { opacity: 1; pointer-events: all; }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { position: absolute; top: 4.5rem; left: 0; width: 100%; background: var(--bg-surface); flex-direction: column; gap: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.3s ease-in-out; border-bottom: 1px solid var(--border-color); }
+            .nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .nav-links a { padding: 1.5rem; width: 100%; text-align: center; border-bottom: 1px solid var(--border-color); }
+            .menu-toggle { display: block; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .why-choose-us { margin: 0; border-radius: 0; padding: 4rem 1.5rem; }
+            .cta-banner { margin: 2rem 0 0; border-radius: 0; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Samar Tech Software Solutions</a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <!-- <a href="#internships">Internships</a> -->
+                <!-- <a href="#workshops">Workshops</a> -->
+                <a href="#contact">Contact Us</a>
+            </div>
+
+            <div class="nav-controls">
+                <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
+                    <i data-lucide="moon" id="themeIcon"></i>
+                </button>
+                <button class="icon-btn menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                    <i data-lucide="menu" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container">
+            <div class="badge-hero">
+                <i data-lucide="sparkles" style="color: var(--primary); width: 16px;"></i>
+                Industry-Level Training & Projects
+            </div>
+            <h1 class="heading-xl">
+                Build Your Future with <br>
+                <span class="text-gradient">Industry-Level Projects</span> & Training
+            </h1>
+            <p class="text-lead">
+                Premium Final Year Projects, Internships, Technical Training & Workshops for Engineering Students.
+            </p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">
+                    Explore Services <i data-lucide="arrow-right" style="width: 18px;"></i>
+                </a>
+                <!-- <a href="#internships" class="btn btn-outline">Apply for Internship</a> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container grid grid-4">
+            <div class="stat-card">
+                <div class="stat-num">1000+</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">4000+</div>
+                <div class="stat-label">Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">200+</div>
+                <div class="stat-label">Workshops</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">100+</div>
+                <div class="stat-label">Internship Batches</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="container text-center">
+            <h2 class="heading-lg">About SamarTech Software Solutions</h2>
+            <p class="text-lead">
+                We are a leading provider of industry-level engineering education, specializing in Final Year Projects, Internship Programs, Technical Training, and College Workshops. Our mission is to bridge the gap between academic learning and industry requirements.
+            </p>
+            
+            <div class="mission-card">
+                To empower engineering students with practical skills and real-world project experience.
+            </div>
+
+            <div class="grid grid-4 text-left">
+                <div class="card">
+                    <div class="feature-icon"><i data-lucide="target"></i></div>
+                    <h3 class="heading-md">Industry-Oriented Learning</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Learn technologies and tools used in real companies.</p>
+                </div>
+                <div class="card">
+                    <div class="feature-icon"><i data-lucide="lightbulb"></i></div>
+                    <h3 class="heading-md">Real-Time Project Support</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">24/7 guidance from experienced mentors.</p>
+                </div>
+                <div class="card">
+                    <div class="feature-icon"><i data-lucide="users"></i></div>
+                    <h3 class="heading-md">Career Development</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Resume building and interview preparation.</p>
+                </div>
+                <div class="card">
+                    <div class="feature-icon"><i data-lucide="trending-up"></i></div>
+                    <h3 class="heading-md">Student-Focused Training</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Customized learning paths for every student.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+        <div class="container">
+            <h2 class="heading-lg" style="color: var(--primary);">Why Choose Us?</h2>
+            <div class="why-stats">
+                <div>
+                    <div class="why-stat-num">5+</div>
+                    <div style="color: var(--text-main); font-weight: 600;">Years Experience</div>
+                </div>
+                <div>
+                    <div class="why-stat-num">100%</div>
+                    <div style="color: var(--text-main); font-weight: 600;">Project Support</div>
+                </div>
+                <div>
+                    <div class="why-stat-num">24/7</div>
+                    <div style="color: var(--text-main); font-weight: 600;">Mentor Availability</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container text-center">
+            <h2 class="heading-lg">Our Services</h2>
+            <p class="text-lead">Comprehensive solutions for engineering students to excel in their academic and professional journey</p>
+            
+            <div class="grid grid-2 text-left">
+                <div class="card flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="code-2"></i></div>
+                    <h3 class="heading-md">Final Year Projects</h3>
+                    <p class="text-muted" style="font-size: 0.95rem;">Industry-standard projects with complete documentation, implementation, and presentation support for all engineering branches.</p>
+                    <div class="service-features">
+                        <span class="pill">Complete Source Code</span>
+                        <span class="pill">Documentation</span>
+                        <span class="pill">PPT & Demo</span>
+                        <span class="pill">One-on-One Support</span>
+                    </div>
+                    <!-- <a href="#projects" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
+                </div>
+                
+                <div class="card flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="users"></i></div>
+                    <h3 class="heading-md">Internship Programs</h3>
+                    <p class="text-muted" style="font-size: 0.95rem;">Comprehensive internship training in latest technologies with certificates and real-world project experience.</p>
+                    <div class="service-features">
+                        <span class="pill">Live Projects</span>
+                        <span class="pill">Certificate</span>
+                        <span class="pill">Online/Offline</span>
+                        <span class="pill">Placement Assistance</span>
+                    </div>
+                    <!-- <a href="#internships" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
+                </div>
+                
+                <div class="card flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="book-open"></i></div>
+                    <h3 class="heading-md">Technical Training</h3>
+                    <p class="text-muted" style="font-size: 0.95rem;">Expert-led training programs in cutting-edge technologies to enhance your technical skills and career prospects.</p>
+                    <div class="service-features">
+                        <span class="pill">Expert Trainers</span>
+                        <span class="pill">Hands-on Practice</span>
+                        <span class="pill">Course Material</span>
+                        <span class="pill">Lifetime Access</span>
+                    </div>
+                    <!-- <a href="#internships" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
+                </div>
+                
+                <div class="card flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="building"></i></div>
+                    <h3 class="heading-md">College Workshops</h3>
+                    <p class="text-muted" style="font-size: 0.95rem;">Interactive workshops and seminars designed for colleges to provide practical exposure to students.</p>
+                    <div class="service-features">
+                        <span class="pill">Customized Content</span>
+                        <span class="pill">On-Campus Training</span>
+                        <span class="pill">Certificates</span>
+                        <span class="pill">Industry Speakers</span>
+                    </div>
+                    <!-- <a href="#workshops" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-padding">
+        <div class="container text-center">
+            <h2 class="heading-lg">Final Year Projects</h2>
+            <p class="text-lead">Browse through our collection of industry-standard projects across multiple domains</p>
+            
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" id="projectSearch" class="search-input" placeholder="Search projects by title, technology, or keyword">
+            </div>
+            
+            <div class="project-filters" id="projectFilters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <!-- <button class="filter-btn" data-filter="CSE">CSE</button> -->
+                <!-- <button class="filter-btn" data-filter="AI/ML">AI/ML</button> -->
+                <button class="filter-btn" data-filter="IoT">IoT</button>
+                <!-- <button class="filter-btn" data-filter="Web Development">Web Development</button> -->
+                <!-- <button class="filter-btn" data-filter="Python">Python</button> -->
+                <button class="filter-btn" data-filter="Electrical">Electrical & Electronics</button>
+            </div>
+            
+            <div class="grid grid-2 text-left" id="projectGrid">
+                
+                <!-- <div class="card project-card" data-category="CSE Web Development">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=600&q=80" alt="E-Commerce">
+                        <span class="project-category">CSE</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">E-Commerce Platform with Payment Gateway</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">Complete online shopping platform with user authentication, cart management, and payment processing.</p>
+                        <div class="project-tech">
+                            <span class="pill">React</span>
+                            <span class="pill">Node.js</span>
+                            <span class="pill">MongoDB</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div> -->
+
+                <div class="card project-card" data-category="Electrical IoT">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Smart Grid">
+                        <span class="project-category">Electrical & Electronics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">Smart Grid Energy Management</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">IoT-enabled system for monitoring and optimizing power distribution.</p>
+                        <div class="project-tech">
+                            <span class="pill">Arduino</span>
+                            <span class="pill">Sensors</span>
+                            <span class="pill">Cloud</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card project-card" data-category="Electrical">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80" alt="Solar Tracking">
+                        <span class="project-category">Electrical & Electronics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">Solar Power Tracking System</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">Automated solar panel tracking system for maximum energy efficiency.</p>
+                        <div class="project-tech">
+                            <span class="pill">Microcontroller</span>
+                            <span class="pill">Servo Motors</span>
+                            <span class="pill">LDR Sensors</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card project-card" data-category="Electrical">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1518993204907-742a78e7fbd1?auto=format&fit=crop&w=600&q=80" alt="Industrial Automation">
+                        <span class="project-category">Electrical & Electronics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">Industrial Automation Control</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">PLC-based automation system for industrial processes.</p>
+                        <div class="project-tech">
+                            <span class="pill">PLC</span>
+                            <span class="pill">SCADA</span>
+                            <span class="pill">HMI</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card project-card" data-category="Electrical AI/ML">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Traffic Light">
+                        <span class="project-category">Electrical & Electronics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">Smart Traffic Light System</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">Intelligent traffic management using sensors and adaptive algorithms.</p>
+                        <div class="project-tech">
+                            <span class="pill">Arduino</span>
+                            <span class="pill">IR Sensors</span>
+                            <span class="pill">Timer Circuits</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div>
+
+                <div class="card project-card" data-category="Electrical">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Wireless Power">
+                        <span class="project-category">Electrical & Electronics</span>
+                    </div>
+                    <div class="project-body">
+                        <h3 class="heading-md">Wireless Power Transfer System</h3>
+                        <p class="text-muted" style="font-size: 0.9rem;">Contactless power transmission using electromagnetic induction.</p>
+                        <div class="project-tech">
+                            <span class="pill">Coils</span>
+                            <span class="pill">Oscillators</span>
+                            <span class="pill">Rectifiers</span>
+                        </div>
+                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="internships" class="section-padding">
+        <div class="container text-center">
+            <h2 class="heading-lg">Internship Programs</h2>
+            <p class="text-lead">Gain practical experience with our comprehensive internship programs</p>
+            
+            <div class="grid grid-3 text-left">
+                <div class="card text-center">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="award"></i></div>
+                    <h3 class="heading-md">Certification</h3>
+                    <p class="text-muted">Industry-recognized certificates</p>
+                </div>
+                <div class="card text-center">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="book-open"></i></div>
+                    <h3 class="heading-md">Real Projects</h3>
+                    <p class="text-muted">Work on live industry projects</p>
+                </div>
+                <div class="card text-center">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="users"></i></div>
+                    <h3 class="heading-md">Career Support</h3>
+                    <p class="text-muted">Placement assistance included</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <div class="cta-banner">
+            <div class="container">
+                <h2 class="heading-lg">Ready to Upgrade Your Skills?</h2>
+                <p class="text-lead" style="margin-bottom: 2rem;">Join thousands of students who have transformed their careers with our training programs</p>
+                <a href="#contact" class="btn" style="background: white; color: var(--primary); box-shadow: 0 4px 14px rgba(0,0,0,0.1);">Apply for Internship</a>
+            </div>
+        </div> -->
+    </section>
+
+    <section id="workshops" class="section-padding">
+        <div class="container text-center">
+            <h2 class="heading-lg">College Workshops</h2>
+            <p class="text-lead">Interactive workshops and seminars designed for colleges to provide practical exposure to students</p>
+            
+            <div class="grid grid-2 text-left" style="margin-bottom: 4rem;">
+                <div class="workshop-card">
+                    <img src="https://images.unsplash.com/photo-1544156942-880c5ce8b335?auto=format&fit=crop&w=800&q=80" alt="Technical Workshop Series">
+                    <div class="workshop-overlay"></div>
+                    <div class="workshop-content">
+                        <h3>Technical Workshop Series</h3>
+                        <p style="opacity: 0.9;">Multi-day workshops on latest technologies</p>
+                    </div>
+                </div>
+                <div class="workshop-card">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="College Seminars">
+                    <div class="workshop-overlay"></div>
+                    <div class="workshop-content">
+                        <h3>College Seminars</h3>
+                        <p style="opacity: 0.9;">Interactive seminars for college students</p>
+                    </div>
+                </div>
+                <div class="workshop-card">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Hands-on Sessions">
+                    <div class="workshop-overlay"></div>
+                    <div class="workshop-content">
+                        <h3>Hands-on Sessions</h3>
+                        <p style="opacity: 0.9;">Practical coding and implementation sessions</p>
+                    </div>
+                </div>
+                <!-- <div class="workshop-card">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Career Guidance">
+                    <div class="workshop-overlay"></div>
+                    <div class="workshop-content">
+                        <h3>Career Guidance Workshops</h3>
+                        <p style="opacity: 0.9;">Guidance for career planning and development</p>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- <div class="grid grid-4 text-left" style="margin-bottom: 3rem;">
+                <div class="card text-center flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="book"></i></div>
+                    <h3 class="heading-md" style="font-size: 1.1rem;">Customized Content</h3>
+                    <p class="text-muted" style="font-size: 0.85rem;">Tailored to your curriculum</p>
+                </div>
+                <div class="card text-center flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="map-pin"></i></div>
+                    <h3 class="heading-md" style="font-size: 1.1rem;">On-Campus Training</h3>
+                    <p class="text-muted" style="font-size: 0.85rem;">Conducted at your college</p>
+                </div>
+                <div class="card text-center flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="calendar"></i></div>
+                    <h3 class="heading-md" style="font-size: 1.1rem;">Flexible Scheduling</h3>
+                    <p class="text-muted" style="font-size: 0.85rem;">Choose convenient dates</p>
+                </div>
+                <div class="card text-center flex-col">
+                    <div class="feature-icon" style="background: var(--primary-light); color: var(--primary); margin: 0 auto 1.5rem;"><i data-lucide="users"></i></div>
+                    <h3 class="heading-md" style="font-size: 1.1rem;">Expert Trainers</h3>
+                    <p class="text-muted" style="font-size: 0.85rem;">Industry professionals</p>
+                </div>
+            </div> -->
+
+            <div class="card text-center" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; max-width: 800px; margin: 0 auto;">
+                <h3 class="heading-lg" style="color: white; margin-bottom: 1rem;">Bring Industry Expertise to Your Campus</h3>
+                <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem;">Contact us to organize a workshop at your college and provide your students with valuable industry insights.</p>
+                <a href="#contact" class="btn btn-outline" style="background: white; color: var(--primary); border: none;">Organize a Workshop</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: var(--bg-surface);">
+        <div class="container text-center">
+            <h2 class="heading-lg">Student Success Stories</h2>
+            <p class="text-lead" style="margin-bottom: 3rem;">Hear from our students about their experience with SamarTech</p>
+            
+            <div class="testimonial-carousel text-left">
+                <div class="testimonial-card">
+                    <div style="font-size: 3rem; color: var(--primary-light); font-family: serif; line-height: 1; margin-bottom: -1rem;">"</div>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="text-muted">"Excellent support throughout my final year project. The mentors are very knowledgeable and helpful."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">R</div>
+                        <div>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Rahul Sharma</h4>
+                            <p style="font-size: 0.85rem; color: var(--primary);">B.Tech CSE </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div style="font-size: 3rem; color: var(--primary-light); font-family: serif; line-height: 1; margin-bottom: -1rem;">"</div>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="text-muted">"The internship program helped me gain practical skills that landed me a great job offer!"</p>
+                    <div class="student-info">
+                        <div class="student-avatar">P</div>
+                        <div>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Priya Patel</h4>
+                            <p style="font-size: 0.85rem; color: var(--primary);">B.Tech EC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div style="font-size: 3rem; color: var(--primary-light); font-family: serif; line-height: 1; margin-bottom: -1rem;">"</div>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="text-muted">"Best decision to join their training program. Very professional and industry-focused approach."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">A</div>
+                        <div>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Arjun Reddy</h4>
+                            <p style="font-size: 0.85rem; color: var(--primary);">B.Tech EEE</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div style="font-size: 3rem; color: var(--primary-light); font-family: serif; line-height: 1; margin-bottom: -1rem;">"</div>
+                    <div class="stars">
+                        <i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i>
+                    </div>
+                    <p class="text-muted">"The workshop was incredibly informative and engaging. Learned so much in just a few days!"</p>
+                    <div class="student-info">
+                        <div class="student-avatar">S</div>
+                        <div>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Sneha Gupta</h4>
+                            <p style="font-size: 0.85rem; color: var(--primary);">B.Tech EEE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="heading-lg">Get In Touch</h2>
+                <p class="text-lead" style="margin-bottom: 4rem;">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div>
+                    <h3 class="heading-md" style="margin-bottom: 1.5rem; font-size: 1.5rem;">Contact Information</h3>
+                    <div class="contact-info-item">
+                        <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="phone"></i></div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Phone</p>
+                            <p style="font-weight: 600;">+91 9876543210</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="mail"></i></div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Email</p>
+                            <p style="font-weight: 600; word-break: break-all;">info@samartechsoftwaresolutions.com</p>
+                        </div>
+                        
+                    </div>
+                    <div class="contact-info-item">
+                        <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="mail"></i></div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Email</p>
+                            <p style="font-weight: 600; word-break: break-all;">Hr@samartechsoftwaresolutions.com</p>
+                        </div>
+                        
+                    </div>
+                    <div class="contact-info-item">
+                        <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Location</p>
+                            <p style="font-weight: 600;">Hyderabad, Telangana, India</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="whatsapp-cta text-left relative overflow-hidden">
+                        <i data-lucide="message-circle" style="position: absolute; right: -20px; bottom: -20px; width: 150px; height: 150px; opacity: 0.1; color: white;"></i>
+                        <h3 style="position: relative; z-index: 1;">Quick Contact via WhatsApp</h3>
+                        <p style="margin-bottom: 1.5rem; opacity: 0.9; position: relative; z-index: 1;">Get instant responses to your queries on WhatsApp</p>
+                        <a href="https://wa.me/919876543210" target="_blank" class="btn" style="background: white; color: #16a34a; position: relative; z-index: 1; width: max-content;">Chat on WhatsApp</a>
+                    </div> -->
+                </div>
+
+                <div class="contact-form">
+                    <h3 class="heading-md" style="margin-bottom: 2rem; font-size: 1.5rem;">Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" id="formName" class="form-control" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="formEmail" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="formPhone" class="form-control" placeholder="+91 XXXXXXXXXX" required>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>College Name</label>
+                            <input type="text" id="formCollege" class="form-control" placeholder="Your college name">
+                        </div> -->
+                        <div class="form-group">
+                            <label>Message *</label>
+                            <textarea id="formMessage" class="form-control" rows="4" placeholder="Tell us about your requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Send Message via WhatsApp <i data-lucide="send" style="width: 18px; margin-left: 8px;"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="logo" style="margin-bottom: 1rem;">Samar Tech Software Solutions</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Empowering engineering students with industry-level projects, internships, and technical training.</p>
+                    <!-- <div class="social-links">
+                        <a href="#"><i data-lucide="facebook" style="width: 18px;"></i></a>
+                        <a href="#"><i data-lucide="twitter" style="width: 18px;"></i></a>
+                        <a href="#"><i data-lucide="instagram" style="width: 18px;"></i></a>
+                        <a href="#"><i data-lucide="linkedin" style="width: 18px;"></i></a>
+                    </div> -->
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#projects">Final Year Projects</a></li>
+                        <li><a href="#internships">Internship Programs</a></li>
+                        <!-- <li><a href="#services">Technical Training</a></li> -->
+                        <li><a href="#workshops">College Workshops</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links" style="color: var(--text-muted); font-size: 0.95rem;">
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="phone" style="width: 16px; color: var(--primary);"></i> +91 9876543210</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; word-break: break-all;"><i data-lucide="mail" style="width: 16px; color: var(--primary);"></i> info@samartechsoftwaresolutions.com</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem; word-break: break-all;"><i data-lucide="mail" style="width: 16px; color: var(--primary);"></i> Hr@samartechsoftwaresolutions.com</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="map-pin" style="width: 16px; color: var(--primary);"></i> Hyderabad, Telangana, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SamarTech Software Solutions. All Rights Reserved.</p>
+                <!-- <div style="display: flex; gap: 1.5rem;">
+                    <a href="#" style="transition: color 0.2s;">Privacy Policy</a>
+                    <a href="#" style="transition: color 0.2s;">Terms of Service</a>
+                </div> -->
+            </div>
+        </div>
+    </footer>
+
+    <div class="fab-container">
+        <button id="scrollTopBtn" class="fab fab-top" aria-label="Scroll to top">
+            <i data-lucide="arrow-up"></i>
+        </button>
+        <!-- <a href="https://wa.me/919876543210" target="_blank" class="fab fab-whatsapp" aria-label="Chat on WhatsApp">
+            <i data-lucide="message-circle"></i>
+        </a> -->
+    </div>
+
+    <script>
+        // 1. Initialize Icons
+        lucide.createIcons();
+
+        // 2. Theme Toggle
+        const themeBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlRoot = document.documentElement;
+        
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            htmlRoot.setAttribute('data-theme', 'dark');
+            themeIcon.setAttribute('data-lucide', 'sun');
+        } else {
+            themeIcon.setAttribute('data-lucide', 'moon');
+        }
+        lucide.createIcons(); // refresh icon
+
+        themeBtn.addEventListener('click', () => {
+            if (htmlRoot.getAttribute('data-theme') === 'dark') {
+                htmlRoot.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                htmlRoot.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            lucide.createIcons();
+        });
+
+        // 3. Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuToggle');
+        const menuIcon = document.getElementById('menuIcon');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = navLinks.querySelectorAll('a');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // 4. Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 5. Project Filtering and Search
+        const searchInput = document.getElementById('projectSearch');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter').toLowerCase();
+
+            projectCards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const tech = Array.from(card.querySelectorAll('.pill')).map(p => p.innerText.toLowerCase()).join(' ');
+                const category = card.getAttribute('data-category').toLowerCase();
+                
+                const matchesSearch = title.includes(searchTerm) || tech.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || category.includes(activeFilter);
+
+                if (matchesSearch && matchesFilter) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterProjects();
+            });
+        });
+
+        searchInput.addEventListener('input', filterProjects);
+
+        // 6. Contact Form (WhatsApp Integration)
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('formName').value;
+            const phone = document.getElementById('formPhone').value;
+            // const college = document.getElementById('formCollege').value;
+            const message = document.getElementById('formMessage').value;
+
+            const text = `*New Contact Request*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*College:* ${college}%0A*Message:* ${message}`;
+            const whatsappUrl = `https://wa.me/919876543210?text=${text}`;
+            
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
