@@ -209,14 +209,49 @@
             .hero-buttons { flex-direction: column; width: 100%; }
             .hero-buttons .btn { width: 100%; }
         }
+
+        /* Update the existing .logo class and add image styles */
+.logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+    font-size: 1.1rem; /* Slightly reduced to fit the longer text */
+    font-weight: 800; 
+    letter-spacing: -0.02em; 
+    color: var(--primary); 
+    text-decoration: none;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px; /* Optional: gives the logo a premium curved edge */
+    object-fit: contain;
+}
+
+/* Responsive adjustment for the long company name on mobile */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        max-width: 180px; /* Prevents text from overlapping the menu button */
+        white-space: normal;
+    }
+}
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Samar Tech Software Solutions</a>
-            
+           
+            <!-- <img src="/samartechsoftwaresolutions/img/logo.jpeg" alt="Logo" style="width: 32px; height: 32px;">
+            <a href="#" class="logo">Samar Tech Software Solutions PVT LTD</a> -->
+            <a href="#" class="logo">
+    <img src="/samartechsoftwaresolutions/img/logo.jpeg" alt="Samar Tech Logo">
+    <span class="logo-text">Samar Tech Software Solutions PVT LTD</span>
+</a>
+
             <div class="nav-links" id="navLinks">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -323,7 +358,7 @@
             <h2 class="heading-lg" style="color: var(--primary);">Why Choose Us?</h2>
             <div class="why-stats">
                 <div>
-                    <div class="why-stat-num">5+</div>
+                    <div class="why-stat-num">3+</div>
                     <div style="color: var(--text-main); font-weight: 600;">Years Experience</div>
                 </div>
                 <div>
@@ -343,7 +378,7 @@
             <h2 class="heading-lg">Our Services</h2>
             <p class="text-lead">Comprehensive solutions for engineering students to excel in their academic and professional journey</p>
             
-            <div class="grid grid-2 text-left">
+            <div class="grid grid-3 text-left">
                 <div class="card flex-col">
                     <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="code-2"></i></div>
                     <h3 class="heading-md">Final Year Projects</h3>
@@ -370,7 +405,7 @@
                     <!-- <a href="#internships" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
                 </div>
                 
-                <div class="card flex-col">
+                <!-- <div class="card flex-col">
                     <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="book-open"></i></div>
                     <h3 class="heading-md">Technical Training</h3>
                     <p class="text-muted" style="font-size: 0.95rem;">Expert-led training programs in cutting-edge technologies to enhance your technical skills and career prospects.</p>
@@ -380,8 +415,8 @@
                         <span class="pill">Course Material</span>
                         <span class="pill">Lifetime Access</span>
                     </div>
-                    <!-- <a href="#internships" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a> -->
-                </div>
+                    <a href="#internships" class="learn-more">Learn More <i data-lucide="arrow-right" style="width: 16px;"></i></a>
+                </div> -->
                 
                 <div class="card flex-col">
                     <div class="feature-icon" style="background: var(--primary-light); color: var(--primary);"><i data-lucide="building"></i></div>
@@ -402,22 +437,22 @@
     <section id="projects" class="section-padding">
         <div class="container text-center">
             <h2 class="heading-lg">Final Year Projects</h2>
-            <p class="text-lead">Browse through our collection of industry-standard projects across multiple domains</p>
+            <p class="text-lead">Browse some of our collection of industry-standard projects.</p>
             
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <i data-lucide="search"></i>
                 <input type="text" id="projectSearch" class="search-input" placeholder="Search projects by title, technology, or keyword">
             </div>
             
             <div class="project-filters" id="projectFilters">
                 <button class="filter-btn active" data-filter="all">All</button>
-                <!-- <button class="filter-btn" data-filter="CSE">CSE</button> -->
-                <!-- <button class="filter-btn" data-filter="AI/ML">AI/ML</button> -->
+                <button class="filter-btn" data-filter="CSE">CSE</button>
+                <button class="filter-btn" data-filter="AI/ML">AI/ML</button>
                 <button class="filter-btn" data-filter="IoT">IoT</button>
-                <!-- <button class="filter-btn" data-filter="Web Development">Web Development</button> -->
-                <!-- <button class="filter-btn" data-filter="Python">Python</button> -->
+                <button class="filter-btn" data-filter="Web Development">Web Development</button>
+                <button class="filter-btn" data-filter="Python">Python</button>
                 <button class="filter-btn" data-filter="Electrical">Electrical & Electronics</button>
-            </div>
+            </div> -->
             
             <div class="grid grid-2 text-left" id="projectGrid">
                 
@@ -440,7 +475,7 @@
 
                 <div class="card project-card" data-category="Electrical IoT">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Smart Grid">
+                        <img src="/samartechsoftwaresolutions/img/smart.jpeg" alt="Smart Grid">
                         <span class="project-category">Electrical & Electronics</span>
                     </div>
                     <div class="project-body">
@@ -451,13 +486,13 @@
                             <span class="pill">Sensors</span>
                             <span class="pill">Cloud</span>
                         </div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                        
                     </div>
                 </div>
 
                 <div class="card project-card" data-category="Electrical">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80" alt="Solar Tracking">
+                        <img src="/samartechsoftwaresolutions/img/solar.jpeg" alt="Solar Tracking">
                         <span class="project-category">Electrical & Electronics</span>
                     </div>
                     <div class="project-body">
@@ -468,13 +503,13 @@
                             <span class="pill">Servo Motors</span>
                             <span class="pill">LDR Sensors</span>
                         </div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                        
                     </div>
                 </div>
 
                 <div class="card project-card" data-category="Electrical">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1518993204907-742a78e7fbd1?auto=format&fit=crop&w=600&q=80" alt="Industrial Automation">
+                        <img src="/samartechsoftwaresolutions/img/industrial automation.jpeg" alt="Industrial Automation">
                         <span class="project-category">Electrical & Electronics</span>
                     </div>
                     <div class="project-body">
@@ -485,11 +520,10 @@
                             <span class="pill">SCADA</span>
                             <span class="pill">HMI</span>
                         </div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
-                    </div>
+                        
                 </div>
 
-                <div class="card project-card" data-category="Electrical AI/ML">
+                <!-- <div class="card project-card" data-category="Electrical AI/ML">
                     <div class="project-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Traffic Light">
                         <span class="project-category">Electrical & Electronics</span>
@@ -502,7 +536,7 @@
                             <span class="pill">IR Sensors</span>
                             <span class="pill">Timer Circuits</span>
                         </div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                       
                     </div>
                 </div>
 
@@ -519,9 +553,9 @@
                             <span class="pill">Oscillators</span>
                             <span class="pill">Rectifiers</span>
                         </div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; border-radius: 8px;">Contact for Details <i data-lucide="external-link" style="width: 16px;"></i></a>
+                        
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -567,7 +601,7 @@
             
             <div class="grid grid-2 text-left" style="margin-bottom: 4rem;">
                 <div class="workshop-card">
-                    <img src="https://images.unsplash.com/photo-1544156942-880c5ce8b335?auto=format&fit=crop&w=800&q=80" alt="Technical Workshop Series">
+                    <img src="/samartechsoftwaresolutions/img/technical training.jpeg" alt="Technical Workshop Series">
                     <div class="workshop-overlay"></div>
                     <div class="workshop-content">
                         <h3>Technical Workshop Series</h3>
@@ -646,7 +680,7 @@
                     <div class="student-info">
                         <div class="student-avatar">R</div>
                         <div>
-                            <h4 style="font-weight: 700; color: var(--text-main);">Rahul Sharma</h4>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Rahul</h4>
                             <p style="font-size: 0.85rem; color: var(--primary);">B.Tech CSE </p>
                         </div>
                     </div>
@@ -661,7 +695,7 @@
                     <div class="student-info">
                         <div class="student-avatar">P</div>
                         <div>
-                            <h4 style="font-weight: 700; color: var(--text-main);">Priya Patel</h4>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Priya</h4>
                             <p style="font-size: 0.85rem; color: var(--primary);">B.Tech EC</p>
                         </div>
                     </div>
@@ -676,7 +710,7 @@
                     <div class="student-info">
                         <div class="student-avatar">A</div>
                         <div>
-                            <h4 style="font-weight: 700; color: var(--text-main);">Arjun Reddy</h4>
+                            <h4 style="font-weight: 700; color: var(--text-main);">Arun Reddy</h4>
                             <p style="font-size: 0.85rem; color: var(--primary);">B.Tech EEE</p>
                         </div>
                     </div>
@@ -714,7 +748,7 @@
                         <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="phone"></i></div>
                         <div>
                             <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Phone</p>
-                            <p style="font-weight: 600;">+91 9876543210</p>
+                            <p style="font-weight: 600;">+91 9030284628</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -737,7 +771,7 @@
                         <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center;"><i data-lucide="map-pin"></i></div>
                         <div>
                             <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Location</p>
-                            <p style="font-weight: 600;">Hyderabad, Telangana, India</p>
+                            <p style="font-weight: 600;">Sreeman Rama Towers, Chaitanyapuri Main Rd, Millenium Residency,Hyderabad, Telangana - 500060, India.</p>
                         </div>
                     </div>
 
@@ -785,7 +819,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <h3 class="logo" style="margin-bottom: 1rem;">Samar Tech Software Solutions</h3>
+                    <h3 class="logo" style="margin-bottom: 1rem;">Samar Tech Software Solutions Pvt Ltd.</h3>
                     <p class="text-muted" style="font-size: 0.9rem;">Empowering engineering students with industry-level projects, internships, and technical training.</p>
                     <!-- <div class="social-links">
                         <a href="#"><i data-lucide="facebook" style="width: 18px;"></i></a>
@@ -815,15 +849,15 @@
                 <div>
                     <h4>Contact Us</h4>
                     <ul class="footer-links" style="color: var(--text-muted); font-size: 0.95rem;">
-                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="phone" style="width: 16px; color: var(--primary);"></i> +91 9876543210</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="phone" style="width: 16px; color: var(--primary);"></i> +91 9030284628</li>
                         <li style="display: flex; align-items: center; gap: 0.5rem; word-break: break-all;"><i data-lucide="mail" style="width: 16px; color: var(--primary);"></i> info@samartechsoftwaresolutions.com</li>
                         <li style="display: flex; align-items: center; gap: 0.5rem; word-break: break-all;"><i data-lucide="mail" style="width: 16px; color: var(--primary);"></i> Hr@samartechsoftwaresolutions.com</li>
-                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="map-pin" style="width: 16px; color: var(--primary);"></i> Hyderabad, Telangana, India</li>
+                        <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="map-pin" style="width: 16px; color: var(--primary);"></i> Sreeman Rama Towers, Chaitanyapuri Main Rd, Millenium Residency,Hyderabad, Telangana - 500060, India.</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 SamarTech Software Solutions. All Rights Reserved.</p>
+                <p>Establsihed 2022. &copy; 2026 SamarTech Software Solutions. All Rights Reserved.</p>
                 <!-- <div style="display: flex; gap: 1.5rem;">
                     <a href="#" style="transition: color 0.2s;">Privacy Policy</a>
                     <a href="#" style="transition: color 0.2s;">Terms of Service</a>
